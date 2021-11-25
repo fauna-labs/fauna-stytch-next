@@ -5,6 +5,7 @@ import React from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import logo from '/public/stytch-logo.svg';
+import fauna from '/public/fauna.svg';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -15,9 +16,14 @@ function MyApp({ Component, pageProps }: AppProps) {
         <title>Stytch + Next.js + Fauna example app</title>
       </Head>
       <div className={styles.nav}>
-        <a href="https://stytch.com" rel="noopener noreferrer" target="_blank">
-          <Image alt="Stytch logo" height={20} src={logo} width={105} />
-        </a>
+        <div className={styles.iconContainer}>
+          <a href="https://stytch.com" rel="noopener noreferrer" target="_blank">
+            <Image alt="Stytch logo" height={20} src={logo} width={105} />
+          </a>
+          <a href="https://fauna.com" rel="noopener noreferrer" target="_blank" className={styles.faunaLogonav}>
+            <Image alt="Fauna logo" height={40} src={fauna} width={110} />
+          </a>
+        </div>
         <span className={styles.accountNavItem}>Account</span>
       </div>
       <div className={styles.root}>

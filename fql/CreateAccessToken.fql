@@ -1,15 +1,13 @@
 Query(
   Lambda(
-    ["email"],
+    ["id"],
     Let(
       {
-        user_set: Match(Index("user_by_email"), Var("email")),
+        user_set: Match(Index("user_by_id"), Var("id")),
         user: If(
           Exists(Var("user_set")),
           Get(Var("user_set")),
-          Create(Collection("User"), {
-            data: { public_address: Var("public_address") }
-          })
+          'User Not Found'
         ),
         token: Create(Tokens(), {
           instance: Select(["ref"], Var("user")),

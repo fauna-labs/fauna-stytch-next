@@ -50,7 +50,8 @@
 
 .nav {
   align-items: center;
-  background-color: #C7F1FF;
+  background-color: white;
+  box-shadow: 0px 4px 12px rgb(0 0 0 / 12%);
   display: flex;
   height: 64px;
   justify-content: space-between;
@@ -81,6 +82,17 @@
 
 .fauna {
   margin: 10px;
+}
+
+.faunaLogonav {
+  margin-left: 20px;
+  transform: translateY(-3px);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+
 }
 
 /* SMS login styles */
