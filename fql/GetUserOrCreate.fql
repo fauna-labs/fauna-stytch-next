@@ -1,0 +1,19 @@
+// GetUserOrCreate
+Query(
+  Lambda(
+    ["email", "stytch_id"],
+    Let(
+      {
+        user_set: Match(Index("user_by_email"), Var("email")),
+        user: If(
+          Exists(Var("user_set")),
+          Get(Var("user_set")),
+          Create(Collection("User"), {
+            data: { email: Var("email"), stytch_id: Var("stytch_id") }
+          })
+        )
+      },
+      { user: Var("user") }
+    )
+  )
+)

@@ -1,0 +1,23 @@
+Query(
+  Lambda(
+    ["email"],
+    Let(
+      {
+        user_set: Match(Index("user_by_email"), Var("email")),
+        user: If(
+          Exists(Var("user_set")),
+          Get(Var("user_set")),
+          Create(Collection("User"), {
+            data: { public_address: Var("public_address") }
+          })
+        ),
+        token: Create(Tokens(), {
+          instance: Select(["ref"], Var("user")),
+          data: { type: "access" },
+          ttl: TimeAdd(Now(), Var("ttl"), "seconds")
+        })
+      },
+      { user: Var("user"), access_token: Var("token") }
+    )
+  )
+)
