@@ -28,8 +28,18 @@ const stytchProps: StytchProps = {
   publicToken: process.env.STYTCH_PUBLIC_TOKEN || '',
   callbacks: {
     onEvent: (data) => {
-      // TODO: check whether the user exists in your DB
       if (data.eventData.type === 'USER_EVENT_TYPE') {
+        // TODO: Create a new user or check if user exists
+        fetch('https://my-json-server.typicode.com/typicode/demo/posts', {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            variables: process.env.FAUNA_SECRECT,
+            shadid: 'ok'
+          }),
+          method: 'POST'
+        })
         console.log({
           userId: data.eventData.userId,
           email: data.eventData.email,
@@ -55,6 +65,7 @@ const App = (props: Props) => {
 
   useEffect(() => {
     if (user) {
+      console.log('--->', user);
       router.push('/profile');
     }
   });

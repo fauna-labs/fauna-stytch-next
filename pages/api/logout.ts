@@ -15,7 +15,7 @@ export async function handler(req: NextIronRequest, res: NextApiResponse<Data>) 
       req.session.destroy();
       res.redirect('/');
     } catch (error) {
-      res.status(400).json({ error });
+      res.status(400).json({ error: error as string });
     }
   } else {
     // Handle any other HTTP method

@@ -39,6 +39,9 @@ const Profile = (props: Props) => {
           <button className={styles.primaryButton} onClick={signOut}>
             Sign out
           </button>
+          <button className={styles.primaryButton} onClick={signOut}>
+            Query Data
+          </button>
         </StytchContainer>
       )}
     </>
