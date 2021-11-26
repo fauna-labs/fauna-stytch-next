@@ -46,6 +46,11 @@
   opacity: 1;
 }
 
+.queryBtn {
+  background-color: #19303D;
+  margin-top: 10px;
+}
+
 /* Nav bar styles */
 
 .nav {

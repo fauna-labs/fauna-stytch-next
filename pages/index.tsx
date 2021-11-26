@@ -7,6 +7,8 @@ import withSession, { ServerSideProps } from '../lib/withSession';
 import LoginWithSMS from '../components/LoginWithSMS';
 import { LoginMethod } from '../lib/types';
 import LoginEntryPoint from '../components/LoginEntryPoint';
+import { Call, Client } from 'faunadb';
+
 
 const stytchProps: StytchProps = {
   loginOrSignupView: {
@@ -27,22 +29,17 @@ const stytchProps: StytchProps = {
   },
   publicToken: process.env.STYTCH_PUBLIC_TOKEN || '',
   callbacks: {
-    onEvent: (data) => {
+    onEvent: async (data) => {
       if (data.eventData.type === 'USER_EVENT_TYPE') {
-        // TODO: Create a new user or check if user exists
-        fetch('https://my-json-server.typicode.com/typicode/demo/posts', {
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            variables: process.env.FAUNA_SECRECT,
-            shadid: 'ok'
-          }),
-          method: 'POST'
-        })
+        const { userId, email } = data.eventData;
+        const faunaClient = new Client({ secret: process.env.FAUNA_SECRET as string });
+        const fresponse = await faunaClient.query(
+          Call("GetUserOrCreate", userId, email)
+        )
+        console.log('--->>>>>', fresponse);
         console.log({
-          userId: data.eventData.userId,
-          email: data.eventData.email,
+          userId,
+          email,
         });
       }
     },

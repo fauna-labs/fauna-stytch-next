@@ -1,15 +1,15 @@
 // GetUserOrCreate
 Query(
   Lambda(
-    ["email", "stytch_id"],
+    ["id", "email"],
     Let(
       {
-        user_set: Match(Index("user_by_email"), Var("email")),
+        user_set: Match(Index("user_by_id"), Var("id")),
         user: If(
           Exists(Var("user_set")),
           Get(Var("user_set")),
           Create(Collection("User"), {
-            data: { email: Var("email"), stytch_id: Var("stytch_id") }
+            data: { email: Var("email"), id: Var("id") }
           })
         )
       },
