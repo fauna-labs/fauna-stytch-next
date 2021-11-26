@@ -11,8 +11,7 @@ Query(
         ),
         token: Create(Tokens(), {
           instance: Select(["ref"], Var("user")),
-          data: { type: "access" },
-          ttl: TimeAdd(Now(), Var("ttl"), "seconds")
+          data: { type: "access" }
         })
       },
       { user: Var("user"), access_token: Var("token") }

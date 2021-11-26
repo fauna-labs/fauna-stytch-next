@@ -36,7 +36,7 @@ const stytchProps: StytchProps = {
         const fresponse = await faunaClient.query(
           Call("GetUserOrCreate", userId, email)
         )
-        console.log('--->>>>>', fresponse);
+        console.log('Response From FaunaDB', fresponse);
         console.log({
           userId,
           email,
@@ -62,7 +62,6 @@ const App = (props: Props) => {
 
   useEffect(() => {
     if (user) {
-      console.log('--->', user);
       router.push('/profile');
     }
   });
