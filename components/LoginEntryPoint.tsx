@@ -26,9 +26,6 @@ const LoginEntryPoint = (props: Props) => {
       <button className={styles.entryButton} onClick={() => setLoginMethod(LoginMethod.SDK)}>
         SDK Integration (Email magic links)
       </button>
-      <button className={styles.entryButton} onClick={() => setLoginMethod(LoginMethod.API)}>
-        API Integration (SMS Passcodes)
-      </button>
     </StytchContainer>
   );
 };

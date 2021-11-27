@@ -55,7 +55,7 @@ export async function handler(req: NextIronRequest, res: NextApiResponse<Data>) 
   }
 }
 
-async function generateFaunaToken(stytchUserId: string) {
+export async function generateFaunaToken(stytchUserId: string) {
   try {
     const faunaClient = new Client({ secret: process.env.FAUNA_SERVER_KEY as string });
     const userfromDB: any = await faunaClient.query(
