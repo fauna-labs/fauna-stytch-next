@@ -3,10 +3,12 @@ import styles from '../styles/Home.module.css';
 import StytchContainer from '../components/StytchContainer';
 import withSession, { ServerSideProps } from '../lib/withSession';
 import { useRouter } from 'next/router';
+import { Client, Collection, Documents, Get, Lambda, Map, Paginate } from 'faunadb';
 
 type Props = {
   user?: {
     id: string;
+    fauna_access_token?: string
   };
 };
 
@@ -27,6 +29,21 @@ const Profile = (props: Props) => {
     }
   };
 
+  const queryData = async () => {
+    try {
+      const faunaClient = new Client({ secret: user?.fauna_access_token as string });
+      const movies: any = await faunaClient.query(
+        Map(
+          Paginate(Documents(Collection('Movie'))),
+          Lambda(x => Get(x))
+        )
+      );
+      console.log(movies);
+    } catch (error) {
+      console.log('Error', error);
+    }
+  }
+
   return (
     <>
       {!user ? (
@@ -40,7 +57,7 @@ const Profile = (props: Props) => {
             Sign out
           </button>
 
-          <button className={styles.queryBtn} onClick={signOut}>
+          <button className={styles.queryBtn} onClick={queryData}>
             Query Data
           </button>
         </StytchContainer>
